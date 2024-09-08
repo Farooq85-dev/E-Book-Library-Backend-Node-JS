@@ -3,7 +3,7 @@ import { User } from "../models/user.model.js";
 import { userSchemaValidation } from "../validationschemas/validation.js";
 import bcrypt from "bcrypt";
 
-const PostUserData = async (req, res, next) => {
+const PostUserData = async (req, res) => {
   try {
     const { error } = userSchemaValidation.validate(req.body);
     const hashPassword = await bcrypt.hashSync(req.body.password, 10);

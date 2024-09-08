@@ -1,15 +1,13 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { User } from "../models/user.model.js";
+import { Book } from "./../models/book.model.js";
 
-const UpdateUserData = async (req, res, next) => {
+const UpdateBookData = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedUser = await User.findByIdAndUpdate(id, {
-      password: "updatedPassword",
-    });
+    const updatedBook = await Book.findByIdAndUpdate(id, req.body);
     res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
-      updatedUser,
+      updatedBook,
     });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
@@ -18,4 +16,4 @@ const UpdateUserData = async (req, res, next) => {
   }
 };
 
-export { UpdateUserData };
+export { UpdateBookData };

@@ -5,9 +5,7 @@ const BooksSchema = new Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
       minlength: 3,
-      maxlength: 20,
     },
     author: {
       type: String,
@@ -18,11 +16,16 @@ const BooksSchema = new Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     publishDate: {
       type: String,
+      required: true,
+      match: /^\d{4}$/,
+    },
+    bookImage: {
+      type: Object,
       required: true,
     },
   },

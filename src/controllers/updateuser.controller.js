@@ -1,7 +1,7 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { User } from "../models/user.model.js";
 
-const UpdateUserData = async (req, res, next) => {
+const UpdateUserData = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedUser = await User.findByIdAndUpdate(id, {

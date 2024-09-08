@@ -1,7 +1,7 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { User } from "./../models/user.model.js";
 
-const DelData = async (req, res, next) => {
+const DeleteUserData = async (req, res) => {
   const { id } = req.params;
   try {
     const deletedUser = await User.findByIdAndDelete(id);
@@ -16,4 +16,4 @@ const DelData = async (req, res, next) => {
   }
 };
 
-export { DelData };
+export { DeleteUserData };

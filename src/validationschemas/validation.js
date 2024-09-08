@@ -14,11 +14,14 @@ const userSchemaValidation = Joi.object({
 
 //Books Schema
 const booksSchemaValidation = Joi.object({
-  title: Joi.string().min(3).max(20).required(),
+  title: Joi.string().min(3).required(),
   author: Joi.string().required(),
   description: Joi.string().required(),
-  price: Joi.string().required(),
-  publishDate: Joi.string().required(),
+  price: Joi.number().required(),
+  publishDate: Joi.string()
+    .required()
+    .pattern(/^\d{4}$/),
+  bookImage: Joi.object().required(),
 });
 
 export { userSchemaValidation, booksSchemaValidation };

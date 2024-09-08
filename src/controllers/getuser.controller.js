@@ -3,7 +3,7 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const GetUserData = async (req, res, next) => {
+const GetUserData = async (req, res) => {
   try {
     const { email, password } = req.query;
     const foundedUser = await User.findOne({ email });

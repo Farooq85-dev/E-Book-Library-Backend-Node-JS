@@ -1,18 +1,17 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { Book } from "../models/book.model.js";
 
-const GetBookData = async (req, res, next) => {
+const GetBookData = async (req, res) => {
   try {
     const foundedBook = await Book.find();
 
     if (!foundedBook) {
-      // User not found
+      // Book not found
       return res.status(StatusCodes.NOT_FOUND).send({
         message: ReasonPhrases.NOT_FOUND,
       });
     }
 
-    // Send successful response with the token
     return res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
       foundedBook,
