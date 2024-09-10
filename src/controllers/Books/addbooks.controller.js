@@ -1,8 +1,8 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { booksSchemaValidation } from "../validationschemas/validation.js";
-import { Book } from "../models/book.model.js";
+import { booksSchemaValidation } from "../../validationschemas/validation.js";
+import { Book } from "../../models/book.model.js";
 
-const PostBookData = async (req, res) => {
+const PostBook = async (req, res) => {
   try {
     const { error } = booksSchemaValidation.validate(req.body);
 
@@ -32,4 +32,4 @@ const PostBookData = async (req, res) => {
   }
 };
 
-export { PostBookData };
+export { PostBook };

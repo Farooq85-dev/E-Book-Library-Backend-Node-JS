@@ -1,16 +1,18 @@
 import { Router } from "express";
-import { PostUserData } from "../controllers/postuser.controller.js";
-import { GetUserData } from "../controllers/getuser.controller.js";
-import { UpdateUserData } from "../controllers/updateuser.controller.js";
-import { DeleteUserData } from "../controllers/delete.controller.js";
-import { PostBookData } from "../controllers/postbooks.controller.js";
-import { GetBookData } from "../controllers/getbook.controller.js";
-import { UpdateBookData } from "../controllers/updatebook.controller.js";
-import { DeleteBookData } from "../controllers/deletebook.controller.js";
-import { UploadController } from "../controllers/upload.controller.js";
-import path from "path";
-import multer from "multer";
+import { PostBook } from "../controllers/Books/addbooks.controller.js";
+import { GetBook } from "../controllers/Books/getbook.controller.js";
+import { UpdateBook } from "../controllers/Books/updatebook.controller.js";
+import { DeleteBook } from "../controllers/Books/deletebook.controller.js";
+import { RegisterUser } from "../controllers/User/registeruser.controller.js";
+import { LoginUser } from "../controllers/User/loginUser.controller.js";
+import { LogoutUser } from "../controllers/User/logoutuser.controller.js";
+import { UpdateUser } from "../controllers/User/updateuser.controller.js";
+import { DeleteUser } from "../controllers/User/deleteuser.controller.js";
+import { UploadController } from "../controllers/Books/upload.controller.js";
+
 import fs from "fs";
+import multer from "multer";
+import path from "path";
 
 // Ensure the uploads folder exists
 const uploadDir = path.join("uploads");
@@ -36,25 +38,21 @@ const upload = multer({ storage: storage });
 const router = Router();
 
 // POST Routes
-router.post("/registerUser", upload.none(), PostUserData);
-router.post(
-  "/addBook",
-  upload.single("bookImage"),
-  UploadController,
-  PostBookData
-);
+router.post("/registerUser", upload.none(), RegisterUser);
+router.post("/logoutUser", LogoutUser);
+router.post("/addBook", upload.single("bookImage"), UploadController, PostBook);
 
 // GET Routes
-router.get("/loginUser", GetUserData);
-router.get("/getBook", GetBookData);
+router.get("/loginUser", LoginUser);
+router.get("/getBook", GetBook);
 
 // PUT Routes
-router.put("/updateUser/:id", upload.none(), UpdateUserData);
-router.put("/updateBook/:id", upload.none(), UpdateBookData);
+router.put("/updateUser/:id", upload.none(), UpdateUser);
+router.put("/updateBook/:id", upload.none(), UpdateBook);
 
 // DELETE Routes
-router.delete("/deleteUser/:id", DeleteUserData);
-router.delete("/deleteBook", DeleteBookData);
+router.delete("/deleteUser/:id", DeleteUser);
+router.delete("/deleteBook", DeleteBook);
 
 // Exporting Router
 export { router };

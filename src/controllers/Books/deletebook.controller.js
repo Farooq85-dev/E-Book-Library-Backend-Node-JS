@@ -1,5 +1,5 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { Book } from "./../models/book.model.js";
+import { Book } from "../../models/book.model.js";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
 
@@ -15,7 +15,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const DeleteBookData = async (req, res) => {
+const DeleteBook = async (req, res) => {
   const { bookId, BookImgId } = req.query;
 
   try {
@@ -45,4 +45,4 @@ const DeleteBookData = async (req, res) => {
   }
 };
 
-export { DeleteBookData };
+export { DeleteBook };

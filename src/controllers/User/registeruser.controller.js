@@ -1,9 +1,9 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { User } from "../models/user.model.js";
-import { userSchemaValidation } from "../validationschemas/validation.js";
+import { User } from "../../models/user.model.js";
+import { userSchemaValidation } from "../../validationschemas/validation.js";
 import bcrypt from "bcrypt";
 
-const PostUserData = async (req, res) => {
+const RegisterUser = async (req, res) => {
   try {
     const { error } = userSchemaValidation.validate(req.body);
     const hashPassword = await bcrypt.hashSync(req.body.password, 10);
@@ -30,4 +30,4 @@ const PostUserData = async (req, res) => {
   }
 };
 
-export { PostUserData };
+export { RegisterUser };

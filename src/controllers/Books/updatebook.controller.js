@@ -1,13 +1,13 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { User } from "./../models/user.model.js";
+import { Book } from "../../models/book.model.js";
 
-const DeleteUserData = async (req, res) => {
-  const { id } = req.params;
+const UpdateBook = async (req, res) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(id);
+    const { id } = req.params;
+    const updatedBook = await Book.findByIdAndUpdate(id, req.body);
     res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
-      deletedUser,
+      updatedBook,
     });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
@@ -16,4 +16,4 @@ const DeleteUserData = async (req, res) => {
   }
 };
 
-export { DeleteUserData };
+export { UpdateBook };

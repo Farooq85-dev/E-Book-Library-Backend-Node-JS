@@ -10,6 +10,7 @@ const userSchemaValidation = Joi.object({
   password: Joi.string()
     .required()
     .pattern(/^.{8,10}$/),
+  refreshToken: Joi.string(),
 });
 
 //Books Schema

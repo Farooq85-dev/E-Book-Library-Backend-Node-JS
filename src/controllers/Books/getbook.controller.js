@@ -1,7 +1,7 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { Book } from "../models/book.model.js";
+import { Book } from "../../models/book.model.js";
 
-const GetBookData = async (req, res) => {
+const GetBook = async (req, res) => {
   try {
     // Get the page number from the query parameters, default to 1 if not provided
     const page = parseInt(req.query.page) || 1;
@@ -39,4 +39,4 @@ const GetBookData = async (req, res) => {
   }
 };
 
-export { GetBookData };
+export { GetBook };
