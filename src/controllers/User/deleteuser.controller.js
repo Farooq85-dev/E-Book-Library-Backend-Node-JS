@@ -10,6 +10,7 @@ const DeleteUser = async (req, res) => {
       deletedUser,
     });
   } catch (error) {
+    console.error("----  Error in Deleting User ----", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });

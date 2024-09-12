@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 // Dotenv Configs
 dotenv.config({
-  path: "./.env"
+  path: "./.env",
 });
 
 cloudinary.config({

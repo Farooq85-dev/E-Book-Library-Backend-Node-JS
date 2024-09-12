@@ -9,7 +9,8 @@ import { LogoutUser } from "../controllers/User/logoutuser.controller.js";
 import { UpdateUser } from "../controllers/User/updateuser.controller.js";
 import { DeleteUser } from "../controllers/User/deleteuser.controller.js";
 import { UploadController } from "../controllers/Books/upload.controller.js";
-
+import { VerifyUser } from "../middlewares/auth.middleware.js";
+import { ChangePassword } from "../controllers/User/changepassword.controller.js";
 import fs from "fs";
 import multer from "multer";
 import path from "path";
@@ -39,7 +40,8 @@ const router = Router();
 
 // POST Routes
 router.post("/registerUser", upload.none(), RegisterUser);
-router.post("/logoutUser", LogoutUser);
+router.post("/logoutUser", VerifyUser, LogoutUser);
+router.post("/changePassword", VerifyUser, ChangePassword);
 router.post("/addBook", upload.single("bookImage"), UploadController, PostBook);
 
 // GET Routes

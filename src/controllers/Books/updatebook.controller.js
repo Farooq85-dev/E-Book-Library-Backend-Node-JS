@@ -10,6 +10,7 @@ const UpdateBook = async (req, res) => {
       updatedBook,
     });
   } catch (error) {
+    console.error("----  Error in Updating Book ----", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });

@@ -70,7 +70,7 @@ const LoginUser = async (req, res) => {
         accessToken,
       });
   } catch (error) {
-    console.error(error); // Log the error for debugging
+    console.error("----  Error in Login User ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });

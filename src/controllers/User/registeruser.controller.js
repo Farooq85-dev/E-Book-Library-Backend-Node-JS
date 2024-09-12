@@ -23,7 +23,7 @@ const RegisterUser = async (req, res) => {
       createdUser,
     });
   } catch (error) {
-    console.log(error);
+    console.log("---- Error in Registering User ----", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });

@@ -38,7 +38,7 @@ const DeleteBook = async (req, res) => {
       result,
     });
   } catch (error) {
-    console.log("---- Error during deletion ----", error.message);
+    console.log("---- Error in Deleting Book ----", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });

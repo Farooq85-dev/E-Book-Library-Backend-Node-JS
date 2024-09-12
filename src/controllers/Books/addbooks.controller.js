@@ -25,7 +25,7 @@ const PostBook = async (req, res) => {
       book: createdBook,
     });
   } catch (error) {
-    console.log(error);
+    console.log("---- Error in Adding Book ----", error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });

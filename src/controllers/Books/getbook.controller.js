@@ -32,7 +32,7 @@ const GetBook = async (req, res) => {
       totalPages,
     });
   } catch (error) {
-    console.error(error);
+    console.error("----  Error in Getting Book ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
