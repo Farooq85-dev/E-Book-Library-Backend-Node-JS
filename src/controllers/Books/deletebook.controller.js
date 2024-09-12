@@ -32,14 +32,14 @@ const DeleteBook = async (req, res) => {
 
     const deletedBook = await Book.findByIdAndDelete(bookId);
 
-    res.status(StatusCodes.OK).send({
+    return res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
       deletedBook,
       result,
     });
   } catch (error) {
     console.log("---- Error in Deleting Book ----", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }

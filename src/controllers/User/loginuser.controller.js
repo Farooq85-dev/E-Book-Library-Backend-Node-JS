@@ -56,7 +56,8 @@ const LoginUser = async (req, res) => {
     //Cookie Options
     const options = {
       httpOnly: true,
-      secure: true,
+      secure: false,
+      sameSite: "None",
     };
 
     // Send successful response with the token

@@ -44,7 +44,7 @@ const UploadController = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("---- Error in uploading file ----", error.message);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
       status: StatusCodes.INTERNAL_SERVER_ERROR,
       error: error.message,

@@ -39,7 +39,7 @@ const VerifyUser = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("---- Error in User Authentication ----", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }

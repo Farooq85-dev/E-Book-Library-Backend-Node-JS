@@ -18,7 +18,7 @@ const LogoutUser = async (req, res) => {
       secure: true,
     };
 
-    res
+    return res
       .status(StatusCodes.OK)
       .clearCookie("refreshToken", options)
       .clearCookie("accessToken", options)
@@ -27,7 +27,7 @@ const LogoutUser = async (req, res) => {
       });
   } catch (error) {
     console.log("---- Error in Logout User ----", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }

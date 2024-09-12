@@ -25,6 +25,8 @@ const GetBook = async (req, res) => {
       });
     }
 
+    console.log(res.cookie.accessToken);
+
     return res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
       foundedBook,

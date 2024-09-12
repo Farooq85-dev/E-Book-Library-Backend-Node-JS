@@ -36,13 +36,13 @@ const ChangePassword = async (req, res) => {
       validateBeforeSave: false,
     });
 
-    res.status(StatusCodes.OK).send({
+    return res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
       updatedUserWithPassword,
     });
   } catch (error) {
     console.error("----  Error in Changing User Password ----", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }

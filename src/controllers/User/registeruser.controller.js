@@ -18,13 +18,13 @@ const RegisterUser = async (req, res) => {
 
     console.log("---- createdUser ----", createdUser);
 
-    res.status(StatusCodes.OK).send({
+    return res.status(StatusCodes.OK).send({
       message: ReasonPhrases.OK,
       createdUser,
     });
   } catch (error) {
     console.log("---- Error in Registering User ----", error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
       message: ReasonPhrases.INTERNAL_SERVER_ERROR,
     });
   }
