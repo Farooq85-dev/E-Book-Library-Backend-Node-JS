@@ -1,5 +1,5 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { booksSchemaValidation } from "../../validationschemas/validation.js";
+import { booksSchemaValidation } from "../../joivalidationschemas/validation.js";
 import { Book } from "../../models/book.model.js";
 
 const PostBook = async (req, res) => {

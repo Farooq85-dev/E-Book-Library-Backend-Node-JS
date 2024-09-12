@@ -1,6 +1,6 @@
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import { User } from "../../models/user.model.js";
-import { userSchemaValidation } from "../../validationschemas/validation.js";
+import { userSchemaValidation } from "../../joivalidationschemas/validation.js";
 import bcrypt from "bcrypt";
 
 const RegisterUser = async (req, res) => {

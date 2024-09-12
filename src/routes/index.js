@@ -11,46 +11,24 @@ import { DeleteUser } from "../controllers/User/deleteuser.controller.js";
 import { UploadController } from "../controllers/Books/upload.controller.js";
 import { VerifyUser } from "../middlewares/auth.middleware.js";
 import { ChangePassword } from "../controllers/User/changepassword.controller.js";
-import fs from "fs";
-import multer from "multer";
-import path from "path";
-
-// Ensure the uploads folder exists
-const uploadDir = path.join("uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
-
-// Multer storage configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    const uniqueFileId = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, `${file.fieldname}-${uniqueFileId}-${file.originalname}`);
-  },
-});
-
-// To Parse Form Data
-const upload = multer({ storage: storage });
+import { Upload } from "../middlewares/multer.middleware.js";
 
 // Creating Route To User All Requests
 const router = Router();
 
 // POST Routes
-router.post("/registerUser", upload.none(), RegisterUser);
+router.post("/registerUser", Upload.none(), RegisterUser);
 router.post("/logoutUser", VerifyUser, LogoutUser);
 router.post("/changePassword", VerifyUser, ChangePassword);
-router.post("/addBook", upload.single("bookImage"), UploadController, PostBook);
+router.post("/addBook", Upload.single("bookImage"), UploadController, PostBook);
 
 // GET Routes
 router.get("/loginUser", LoginUser);
 router.get("/getBook", GetBook);
 
 // PUT Routes
-router.put("/updateUser/:id", upload.none(), UpdateUser);
-router.put("/updateBook/:id", upload.none(), UpdateBook);
+router.put("/updateUser/:id", Upload.none(), UpdateUser);
+router.put("/updateBook/:id", Upload.none(), UpdateBook);
 
 // DELETE Routes
 router.delete("/deleteUser/:id", DeleteUser);
