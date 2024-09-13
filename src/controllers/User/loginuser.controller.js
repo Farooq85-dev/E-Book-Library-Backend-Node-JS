@@ -57,8 +57,7 @@ const LoginUser = async (req, res) => {
     // Cookie Options
     const options = {
       httpOnly: true,
-      secure: false,
-      sameSite: "None",
+      secure: true,
     };
 
     return res
