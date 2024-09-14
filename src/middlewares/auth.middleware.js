@@ -1,7 +1,7 @@
 import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 
 // Dotenv Configs
 dotenv.config({
@@ -17,7 +17,7 @@ const VerifyUser = async (req, res, next) => {
 
     if (!token) {
       return res.status(StatusCodes.UNAUTHORIZED).send({
-        message: ReasonPhrases.UNAUTHORIZED,
+        message: "Please signin again!",
       });
     }
 
@@ -32,7 +32,7 @@ const VerifyUser = async (req, res, next) => {
 
     if (!user) {
       return res.status(StatusCodes.NOT_FOUND).send({
-        message: ReasonPhrases.NOT_FOUND,
+        message: "Please register. If you are register. Please signin again!",
       });
     }
     req.user = user;
@@ -40,7 +40,7 @@ const VerifyUser = async (req, res, next) => {
   } catch (error) {
     console.log("---- Error in User Authentication ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "Please try again!",
     });
   }
 };

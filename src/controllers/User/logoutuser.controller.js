@@ -1,4 +1,4 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { User } from "../../models/user.model.js";
 
 const LogoutUser = async (req, res) => {
@@ -23,12 +23,12 @@ const LogoutUser = async (req, res) => {
       .clearCookie("refreshToken", options)
       .clearCookie("accessToken", options)
       .send({
-        message: ReasonPhrases.OK,
+        message: "You have been logout successfully!",
       });
   } catch (error) {
     console.log("---- Error in Logout User ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "Please try again!",
     });
   }
 };

@@ -1,49 +1,57 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcrypt";
 
 const ChangePassword = async (req, res) => {
   try {
-    const { oldPassword, newPassword } = req.query;
+    const { oldPassword, newPassword } = req.body;
+    console.log(req.body);
+
     const { user } = req;
 
-    if (!oldPassword && !newPassword) {
+    if (!oldPassword || !newPassword) {
       return res.status(StatusCodes.BAD_REQUEST).send({
-        message: ReasonPhrases.BAD_REQUEST,
+        message: "Old password or new password is missing!",
       });
     }
 
-    const isOldPasswordCorrect = bcrypt.compareSync(oldPassword, user.password);
+    // Verify old password
+    const isOldPasswordCorrect = await bcrypt.compare(
+      oldPassword,
+      user.password
+    ); // Use async version
 
     if (!isOldPasswordCorrect) {
-      // Old password does not match
-      return res.status(StatusCodes.NOT_ACCEPTABLE).send({
-        message: ReasonPhrases.NOT_ACCEPTABLE,
+      return res.status(StatusCodes.UNAUTHORIZED).send({
+        message: "Incorrect old password!",
       });
     }
 
     // Check if new password is the same as old password
-    if (bcrypt.compareSync(newPassword, user.password)) {
-      return res.status(StatusCodes.NOT_ACCEPTABLE).send({
-        message: ReasonPhrases.NOT_ACCEPTABLE,
+    const isNewPasswordSameAsOld = await bcrypt.compare(
+      newPassword,
+      user.password
+    ); // Use async version
+
+    if (isNewPasswordSameAsOld) {
+      return res.status(StatusCodes.BAD_REQUEST).send({
+        message: "New password must be different from the old password!",
       });
     }
 
+    // Hash the new password
     const hashPassword = await bcrypt.hash(newPassword, 10);
 
+    // Update user password
     user.password = hashPassword;
-
-    const updatedUserWithPassword = await user.save({
-      validateBeforeSave: false,
-    });
+    await user.save({ validateBeforeSave: false });
 
     return res.status(StatusCodes.OK).send({
-      message: ReasonPhrases.OK,
-      updatedUserWithPassword,
+      message: "Password updated successfully!",
     });
   } catch (error) {
-    console.error("----  Error in Changing User Password ----", error);
+    console.error("---- Error in Changing User Password ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "An error occurred. Please try again!",
     });
   }
 };

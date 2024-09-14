@@ -1,4 +1,4 @@
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import path from "path";
@@ -18,7 +18,9 @@ cloudinary.config({
 const UploadController = async (req, res, next) => {
   try {
     if (!req.file) {
-      throw new Error("File not provided!");
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        message: "Please provide file!",
+      });
     }
 
     const filePath = path.join(req.file.destination, req.file.filename);
@@ -36,8 +38,6 @@ const UploadController = async (req, res, next) => {
     // Cleanup: Remove the file from the local uploads folder after uploading to Cloudinary
     fs.unlinkSync(filePath);
 
-    console.log(uploadResult);
-
     // Attach the file URL to req.body for use in PostBookData
     req.body.bookImage = uploadResult;
     // Pass control to the next middleware
@@ -45,9 +45,8 @@ const UploadController = async (req, res, next) => {
   } catch (error) {
     console.log("---- Error in uploading file ----", error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
       status: StatusCodes.INTERNAL_SERVER_ERROR,
-      error: error.message,
+      message: "Error occurred in file uploading. Please try again!",
     });
   }
 };

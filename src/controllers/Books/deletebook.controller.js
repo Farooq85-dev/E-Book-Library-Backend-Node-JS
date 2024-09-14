@@ -1,4 +1,4 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { Book } from "../../models/book.model.js";
 import { v2 as cloudinary } from "cloudinary";
 import dotenv from "dotenv";
@@ -24,23 +24,22 @@ const DeleteBook = async (req, res) => {
     });
 
     if (result.result === "not found") {
-      console.log("---- Image not found in Cloudinary ----");
       return res.status(StatusCodes.NOT_FOUND).send({
-        message: "---- Image not found in Cloudinary ----",
+        message: "Image not found in Cloudinary",
       });
     }
 
     const deletedBook = await Book.findByIdAndDelete(bookId);
 
     return res.status(StatusCodes.OK).send({
-      message: ReasonPhrases.OK,
+      message: "Book deletes successfully!",
       deletedBook,
       result,
     });
   } catch (error) {
     console.log("---- Error in Deleting Book ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "Please try again!",
     });
   }
 };

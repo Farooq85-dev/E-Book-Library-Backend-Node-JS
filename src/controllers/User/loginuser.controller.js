@@ -1,4 +1,4 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { User } from "../../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -11,13 +11,13 @@ dotenv.config({
 
 const LoginUser = async (req, res) => {
   try {
-    const { email, password } = req.query;
+    const { email, password } = req.body;
     const foundedUser = await User.findOne({ email });
 
     if (!foundedUser) {
       // User not found
       return res.status(StatusCodes.NOT_FOUND).send({
-        message: ReasonPhrases.NOT_FOUND,
+        message: "You are not rigstered!",
       });
     }
 
@@ -26,7 +26,7 @@ const LoginUser = async (req, res) => {
     if (!chkPassword) {
       // Password does not match
       return res.status(StatusCodes.UNAUTHORIZED).send({
-        message: ReasonPhrases.UNAUTHORIZED,
+        message: "Please type correct password!",
       });
     }
 
@@ -65,14 +65,12 @@ const LoginUser = async (req, res) => {
       .cookie("refreshToken", refreshToken, options)
       .cookie("accessToken", accessToken, options)
       .send({
-        message: ReasonPhrases.OK,
-        refreshToken,
-        accessToken,
+        message: "You have been signin successfully!",
       });
   } catch (error) {
     console.error("---- Error in Login User ----", error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "Please try again!",
     });
   }
 };

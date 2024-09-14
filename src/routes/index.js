@@ -19,11 +19,11 @@ const router = Router();
 // POST Routes
 router.post("/registerUser", Upload.none(), RegisterUser);
 router.post("/logoutUser", VerifyUser, LogoutUser);
-router.post("/changePassword", VerifyUser, ChangePassword);
+router.post("/changePassword", VerifyUser, Upload.none(), ChangePassword);
 router.post("/addBook", Upload.single("bookImage"), UploadController, PostBook);
+router.post("/loginUser", Upload.none(), LoginUser);
 
 // GET Routes
-router.get("/loginUser", LoginUser);
 router.get("/getBook", GetBook);
 
 // PUT Routes

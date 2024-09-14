@@ -1,4 +1,4 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { Book } from "../../models/book.model.js";
 
 const GetBook = async (req, res) => {
@@ -21,12 +21,12 @@ const GetBook = async (req, res) => {
 
     if (!foundedBook.length) {
       return res.status(StatusCodes.NOT_FOUND).send({
-        message: ReasonPhrases.NOT_FOUND,
+        message: "Library doesn't contain any books. Please add books!",
       });
     }
 
     return res.status(StatusCodes.OK).send({
-      message: ReasonPhrases.OK,
+      message: "Please wait!",
       foundedBook,
       currentPage: page,
       totalPages,
@@ -34,7 +34,7 @@ const GetBook = async (req, res) => {
   } catch (error) {
     console.error("----  Error in Getting Book ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "Please try again!",
     });
   }
 };

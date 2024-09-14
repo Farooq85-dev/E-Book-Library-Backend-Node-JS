@@ -1,4 +1,4 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { booksSchemaValidation } from "../../joivalidationschemas/validation.js";
 import { Book } from "../../models/book.model.js";
 
@@ -21,13 +21,13 @@ const PostBook = async (req, res) => {
     console.log("---- Book Added Successfully ----", createdBook);
 
     return res.status(StatusCodes.OK).send({
-      message: ReasonPhrases.OK,
+      message: "Book added successfully!",
       book: createdBook,
     });
   } catch (error) {
     console.log("---- Error in Adding Book ----", error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
-      message: ReasonPhrases.INTERNAL_SERVER_ERROR,
+      message: "Please try again!",
     });
   }
 };
