@@ -1,4 +1,3 @@
-import { StatusCodes, ReasonPhrases } from "http-status-codes";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -20,7 +19,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// To Parse Form Data
 const Upload = multer({ storage: storage });
 
 export { Upload };

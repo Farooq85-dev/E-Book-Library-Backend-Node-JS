@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { User } from "../../models/user.model.js";
+import { COOKIES_OPTIONS } from "../../constants.js";
 
 const LogoutUser = async (req, res) => {
   try {
@@ -12,16 +13,10 @@ const LogoutUser = async (req, res) => {
       },
     });
 
-    // Clear cookies
-    const options = {
-      httpOnly: true,
-      secure: true,
-    };
-
     return res
       .status(StatusCodes.OK)
-      .clearCookie("refreshToken", options)
-      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", COOKIES_OPTIONS)
+      .clearCookie("accessToken", COOKIES_OPTIONS)
       .send({
         message: "You have been logout successfully!",
       });

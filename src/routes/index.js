@@ -12,6 +12,7 @@ import { UploadController } from "../controllers/Books/upload.controller.js";
 import { VerifyUser } from "../middlewares/auth.middleware.js";
 import { ChangePassword } from "../controllers/User/changepassword.controller.js";
 import { Upload } from "../middlewares/multer.middleware.js";
+import { RefreshToken } from "../controllers/User/regeneratetoken.contoller.js";
 
 // Creating Route To User All Requests
 const router = Router();
@@ -22,6 +23,8 @@ router.post("/logoutUser", VerifyUser, LogoutUser);
 router.post("/changePassword", VerifyUser, Upload.none(), ChangePassword);
 router.post("/addBook", Upload.single("bookImage"), UploadController, PostBook);
 router.post("/loginUser", Upload.none(), LoginUser);
+router.post("/regenerateTokens", RefreshToken);
+router.post("/verifyUser", VerifyUser);
 
 // GET Routes
 router.get("/getBook", GetBook);

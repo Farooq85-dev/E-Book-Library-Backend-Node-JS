@@ -2,12 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import { User } from "../../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-// Dotenv Configs
-dotenv.config({
-  path: "./.env",
-});
+import { COOKIES_OPTIONS } from "../../constants.js";
 
 const LoginUser = async (req, res) => {
   try {
@@ -33,7 +28,7 @@ const LoginUser = async (req, res) => {
     const { _id } = foundedUser;
 
     // Generate JWT Refresh Token
-    const refreshToken = await jwt.sign(
+    const refreshToken = jwt.sign(
       { email, _id },
       process.env.REFRESH_TOKEN_SECRET,
       {
@@ -42,7 +37,7 @@ const LoginUser = async (req, res) => {
     );
 
     // Generate JWT Access Token
-    const accessToken = await jwt.sign(
+    const accessToken = jwt.sign(
       { email, _id },
       process.env.ACCESS_TOKEN_SECRET,
       {
@@ -54,16 +49,10 @@ const LoginUser = async (req, res) => {
     foundedUser.refreshToken = refreshToken;
     await foundedUser.save();
 
-    // Cookie Options
-    const options = {
-      httpOnly: true,
-      secure: true,
-    };
-
     return res
       .status(StatusCodes.OK)
-      .cookie("refreshToken", refreshToken, options)
-      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", refreshToken, COOKIES_OPTIONS)
+      .cookie("accessToken", accessToken, COOKIES_OPTIONS)
       .send({
         message: "You have been signin successfully!",
       });

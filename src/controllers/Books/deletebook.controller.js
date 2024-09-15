@@ -1,12 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { Book } from "../../models/book.model.js";
 import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv";
-
-// Dotenv Configs
-dotenv.config({
-  path: "./.env",
-});
 
 // Cloudinary config
 cloudinary.config({
