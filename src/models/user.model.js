@@ -20,6 +20,10 @@ const UserSchema = new Schema(
     refreshToken: {
       type: String,
     },
+    role: {
+      type: String,
+      default: "User",
+    },
   },
   {
     timestamps: true,

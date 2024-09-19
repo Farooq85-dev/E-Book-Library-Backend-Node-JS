@@ -1,19 +1,16 @@
 import Joi from "joi";
 
-//User Schema
+// User Schema
 const userSchemaValidation = Joi.object({
   name: Joi.string().min(3).max(20).required(),
-  email: Joi.string()
-    .email()
-    .required()
-    .pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/),
+  email: Joi.string().email().required(),
   password: Joi.string()
     .required()
-    .pattern(/^.{8,10}$/),
-  refreshToken: Joi.string(),
+    .pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,10}$/), // At least 1 uppercase, 1 lowercase, and 1 digit
+  refreshToken: Joi.string().optional(), // Explicitly optional
 });
 
-//Books Schema
+// Books Schema
 const booksSchemaValidation = Joi.object({
   title: Joi.string().min(3).required(),
   author: Joi.string().required(),
@@ -21,7 +18,7 @@ const booksSchemaValidation = Joi.object({
   price: Joi.number().required(),
   publishDate: Joi.string()
     .required()
-    .pattern(/^\d{4}$/),
+    .pattern(/^\d{4}$/), // Year format
   bookImage: Joi.object().required(),
 });
 

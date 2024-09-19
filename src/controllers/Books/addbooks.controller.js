@@ -4,7 +4,9 @@ import { Book } from "../../models/book.model.js";
 
 const PostBook = async (req, res) => {
   try {
-    const { error } = booksSchemaValidation.validate(req.body);
+    const { error } = booksSchemaValidation.validate(req.body, {
+      new: true,
+    });
 
     if (error) {
       return res.status(400).json({ error: error.details[0].message });

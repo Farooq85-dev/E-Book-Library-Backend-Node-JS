@@ -9,7 +9,7 @@ const RegisterUser = async (req, res) => {
 
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    if (!existingUser) {
       return res.status(StatusCodes.BAD_REQUEST).send({
         message: "User already exists",
       });
